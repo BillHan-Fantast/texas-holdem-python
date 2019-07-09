@@ -1,0 +1,31 @@
+v1: 1v1 Poker Human vs CPU using basic action selection
+	setup game (pot = 0, player chips = 10000, hands = [], cc = [], deck.shuffle())
+	deal in
+	getAction for human
+	getAction for CPU
+		if raise, getAction for human etc
+	flop
+	actions
+	...
+	find winner
+	add pot to winner chips
+
+v2: start, train AI, play inf hands user input vs ai
+	setup the game
+		set player1 to cpu
+		set player2 to ai
+		set buyIn to 10000
+		for 10000 hands
+			shuffle deck, clear hands, clear pot
+			deal in both players
+			getAction from both players (fold, check/call, raise)
+				cpu first: 	fold - set ai as winner, reset for new hand
+							check - get ai action
+							raise - chips - amt, pot + amt, get ai action
+				ai second: 	fold - set ai as loser for Qtable, reset for new hand
+							check/call - if call, chips - amt, pot + amt, continue
+							raise - chips....., get action from cpu again
+							
+		
+
+v2: start, input settings, setup new game with 2-8 players, train 1+ AI's, 1 user vs all others
