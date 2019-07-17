@@ -39,36 +39,50 @@ class PokerGame:
         self.still_playing = [1] * len(self.players)
         
     def playHand(self):
+        
+        # Display new hand msg
+        print("-----------------------------")
+        print("----- Starting New Hand -----")
+        print("-----------------------------\n")
+        
         self.getAntes()
         self.dealIn()
         num_alive = self.actionPhase()
         if num_alive <= 1:
             winner = self.getWinner(self.players)
-            print(winner.name + " is the winner!")
+            print(winner.name + " is the winner!\n" + winner.name + " wins " + str(self.pot))
+            winner.chips += self.pot
             return winner
         self.flop()
         num_alive = self.actionPhase()
         if num_alive <= 1:
             winner = self.getWinner(self.players)
-            print(winner.name + " is the winner!")
+            print(winner.name + " is the winner!\n" + winner.name + " wins " + str(self.pot))
+            winner.chips += self.pot
             return winner
         self.turn()
         num_alive = self.actionPhase()
         if num_alive <= 1:
             winner = self.getWinner(self.players)
-            print(winner.name + " is the winner!")
+            print(winner.name + " is the winner!\n" + winner.name + " wins " + str(self.pot))
+            winner.chips += self.pot
             return winner
         self.river()
         num_alive = self.actionPhase()
         if num_alive <= 1:
             winner = self.getWinner(self.players)
-            print(winner.name + " is the winner!")
+            print(winner.name + " is the winner!\n" + winner.name + " wins " + str(self.pot))
+            winner.chips += self.pot
             return winner
         else:
             print("Calculating winner...")
             return 0
         
     def getAntes(self):
+        
+        # print get ante msg
+        print("----- Getting Antes... -----")
+        
         for p in self.players:
             if p.chips >= 50:
                 p.alive = True
@@ -147,7 +161,7 @@ class PokerGame:
         return num_alive
         if num_alive == 1:
             winner = self.getWinner(self.players)
-            print(winner.name + " is the winner!")
+            print(winner.name + " is the winner!\n" + winner.name + " wins " + self.pot)
         else:
             print("next phase")
                 
@@ -170,12 +184,23 @@ class PokerGame:
             print(p.chips)
             
     def printGameState(self):
-        print("------- Game State -------")
-        print("Pot: " + str(self.pot))
-        print("CC: ",end=" ")
+        text = "------- Game State -------"
+        text += "\nPot:\t" + str(self.pot)
+        text += "\nCC:\t"
         for c in self.cc:
-            print(str(c),end=" ")
-        print("--------------------------")
+            text += str(c) + " "
+        text += "\nPlayers:\t"
+        for p in self.players:
+            text += str(p.name) + "\t\t"
+        text += "\n\t\t"
+        for p in self.players:
+            text += str(p.chips) + "(" + str(p.bet) + ")"
+            if p.alive == False:
+                text += " Out"
+            text += "\t"
+        text += "\n-------------------------"
+        
+        print(text)
             
     # return true if all players are alive and acted, or not alive
     def checkIfActionPhaseDone(self,players):
