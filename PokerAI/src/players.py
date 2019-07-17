@@ -35,6 +35,8 @@ class Player:
         self.chips = 0
         self.bet = 0
         self.hand = []
+        self.alive = False
+        self.acted = False
         
     def getName(self):
         return self.name
@@ -60,7 +62,7 @@ class Player:
     # return value: 0 for fold
     #               1 for check
     #               other int for bet amount
-    def getAction(self,game):
+    def getAction(self):
         if self.mode == 0:
             # human
             action = -1
@@ -82,6 +84,11 @@ class Player:
         text = "\n=== Player " + self.name + " ===\n"
         text += "Mode: " + str(self.mode) + "\n"
         text += "Chips: " + str(self.chips) + "\n"
+        text += "Alive: " + str(self.alive) + "\n"
+        text += "Hand: "
+        for c in self.hand:
+            text += str(c) + " "
+        text += "\n"
         text += "==================="
         return text
         
